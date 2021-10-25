@@ -1,0 +1,8 @@
+$footer-height: 3rem;
+$footer-color: #f89b00;
+
+footer {
+  flex-shrink: 0;
+  height: $footer-height;
+  background-color: $footer-color;
+}

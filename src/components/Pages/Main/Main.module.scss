@@ -1,0 +1,18 @@
+@import url("/src/ConstantsStyles.scss");
+
+main {
+  display: grid;
+  grid-template-columns: calc( var(--icon-big-size) * 2 + var(--mb-1) * 2) 1fr;
+  min-height: calc(100vh - 6rem);
+  box-sizing: border-box;
+  width: 100vw;
+  background: center / cover no-repeat url("https://picsum.photos/1920/1080");
+
+  .main_content{
+    display: flex;
+    flex-direction: column;
+    justify-content:  flex-start;
+    align-items: center;
+    padding: 30px;
+  }
+}

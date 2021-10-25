@@ -1,0 +1,43 @@
+.iconDone{
+  color: green;
+}
+
+.iconUndone{
+  color: red;
+}
+
+.icon_middle{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: var(--icon-middle-size);
+}
+
+.posLeft{
+  right: calc( - var(--icon-middle-size));
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  button {
+    border: none;
+    background-color: transparent;
+  }
+  
+}
+
+.vertical_text {
+  writing-mode: tb-rl;
+}
+
+
+.ground_charact {
+  td:last-child{
+    background-color: #f89b0060;
+  }
+}

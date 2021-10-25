@@ -1,0 +1,13 @@
+@import url("/src/ConstantsStyles.scss");
+
+.btn-user-auth-form {
+  padding: var(--mb-0);
+  margin: auto var(--mb-2);
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: var(--font-semi-bold);
+}
+
+button:hover{
+  cursor: pointer;
+}

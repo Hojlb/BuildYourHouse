@@ -1,0 +1,39 @@
+$header-height: 3rem;
+$header-color: #02cb6a;
+@import url("/src/ConstantsStyles.scss");
+
+header {
+  width: 100%;
+  height: $header-height;
+  background-color: $header-color;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  h2 {
+    padding-left: 1rem;
+    font-size: var(--biggest-font-size);
+  }
+
+  div {
+    margin-right: 0.75rem;
+  }
+
+  .header-logo {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    font-size: var(--small-font-size);
+
+    span{
+      padding: 0 0.5rem;
+    }
+  }
+
+}
