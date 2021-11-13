@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef } from "react";
+import { ConfirmBtn } from "/src/UI/Button/MaterialForm/ConfirmBtn";
 import "./addMaterialForm.scss";
 
 const AddMaterialForm = (props) => {
@@ -15,7 +16,8 @@ const AddMaterialForm = (props) => {
   };
 
   return (
-    <form onSubmit={submitMaterialHandler} className={"add-material"}>
+    <form onSubmit={submitMaterialHandler} className="add-material">
+      <h3>Database controls</h3>
       <div className={"add-material_itm"}>
         <label htmlFor="name">Name</label>
         <input type="text" id="name" ref={materialName} />
@@ -26,7 +28,7 @@ const AddMaterialForm = (props) => {
         <input type="number" id="value" ref={materialValue} step="0.1" />
       </div>
 
-      <button>Add Material </button>
+      <ConfirmBtn className="btn">Add Material </ConfirmBtn>
     </form>
   );
 };

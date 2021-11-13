@@ -4,11 +4,16 @@ import { loadTableAction as ActLoad } from "/src/store/LoadTableStore";
 import { ICONS } from "/src/constants/ICONS";
 import styles from "./loadTable.module.scss";
 
-const LoadHeadTable = () => {
+const LoadHeadTable = (props) => {
+  const isShow = props.showDBControls;
   const dispatch = useDispatch();
 
   const addItemHandler = () => {
     dispatch(ActLoad.addLoadRow());
+  };
+
+  const showMaterialDBHandler = () => {
+    props.showDB();
   };
 
   return (
@@ -25,6 +30,12 @@ const LoadHeadTable = () => {
         <th>
           <BtnLoadTable className={styles.icon_middle} onClick={addItemHandler}>
             {ICONS.addItem}
+          </BtnLoadTable>
+          <BtnLoadTable
+            className={styles.icon_middle}
+            onClick={showMaterialDBHandler}
+          >
+            {isShow ? ICONS.show : ICONS.hidden}
           </BtnLoadTable>
         </th>
       </tr>

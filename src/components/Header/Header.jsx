@@ -3,6 +3,7 @@ import styles from "./Header.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/UserAuth";
 import BtnUserAuthForm from "../../UI/Button/BtnUserAuthForm/BtnUserAuthForm";
+import { ICONS } from "/src/constants/ICONS";
 
 const Header = (props) => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const Header = (props) => {
     <header className={styles["header"]}>
       <a href="#home">
         <div className={styles["header-logo"]}>
-          <h2>Remax</h2>
+          <h2> {ICONS.home2} Remax</h2>
           <span>Build your house</span>
         </div>
       </a>

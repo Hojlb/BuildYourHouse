@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import GroundTable from "./GroundTable/GroundTable";
+import FoundationBaseOptions from "./FoundationBaseOptions/index";
+
 import { useDispatch, useSelector } from "react-redux";
 import { foundationAction as FAction } from "../../../store/FoundationStore";
 import styles from "./Foundation.module.scss";
@@ -28,6 +30,7 @@ const Foundation = () => {
         removeGroundRow={removeGround}
         changeData={changeGroundData}
       />
+      <FoundationBaseOptions />
     </section>
   );
 };

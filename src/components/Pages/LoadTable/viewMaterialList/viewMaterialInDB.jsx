@@ -29,7 +29,7 @@ const ViewMaterialList = (props) => {
   }
 
   return (
-    <div>
+    <div className={styles.box}>
       <h3>Material in database:</h3>
       {content}
     </div>

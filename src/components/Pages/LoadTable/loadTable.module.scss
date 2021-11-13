@@ -19,8 +19,6 @@ thead {
   }
 }
 
-
-
 .t_load_main_calc {
   td:last-child{
     background-color: #f89b0060;
@@ -33,9 +31,20 @@ thead {
   justify-content: center;
   align-items: center;
   font-size: var(--icon-middle-size);
-  margin: 0 auto;
-  height: 100%;
+  margin: var(--mb-0) auto;
   width: 100%;
 }
 
-
+.box {
+  background-color: #f7e8b8ed;
+  max-width: 35%;
+  margin: 20px auto;
+  border-radius: 20px;
+  overflow: hidden;
+}
+.box.hidden {
+  display: none;
+}
+.box.show {
+  display: block;
+}

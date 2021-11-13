@@ -32,42 +32,6 @@ const Sidebar = () => {
               </NavListItem>
             </NavLink>
           ))}
-          {/* <NavLink exact to="/" onClick>
-            <NavListItem isActive>
-              {ICONS["home"]}
-              <span>Home</span>
-            </NavListItem>
-          </NavLink>
-          <NavLink to="/login">
-            <NavListItem>
-              {ICONS["user"]} <span>User</span>
-            </NavListItem>
-          </NavLink>
-          <NavLink to="/calcLoads">
-            <NavListItem>
-              <span>Calc Loads</span>
-            </NavListItem>
-          </NavLink>
-          <NavLink to="/calcFound">
-            <NavListItem>
-              <span>Calc Fund</span>
-            </NavListItem>
-          </NavLink>
-          <NavLink to="/calcBrick">
-            <NavListItem>
-              {ICONS["brick"]} <span>Calk Brick</span>
-            </NavListItem>
-          </NavLink>
-          <NavLink to="/settings">
-            <NavListItem>
-              {ICONS["settings"]} <span>settings</span>
-            </NavListItem>
-          </NavLink>
-          <NavLink to="/about">
-            <NavListItem>
-              <span>About</span>
-            </NavListItem>
-          </NavLink> */}
         </ul>
       </nav>
     </aside>

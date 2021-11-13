@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import GroundTableRow from "./GTRow";
 import GTHead from "./GTHead";
-import "./GroundTable.module.scss";
+import styles from "./GroundTable.module.scss";
 
 const GroundTable = (props) => {
   /*TODO: сделать добавление элемента в сторе который контролирует базу данных грунтов
@@ -22,7 +22,7 @@ const GroundTable = (props) => {
   };
 
   return (
-    <table>
+    <table className={styles.grnd_main_table}>
       <caption>Характеристики грунтов</caption>
       <GTHead />
       <tbody>

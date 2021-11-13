@@ -14,6 +14,7 @@ const GroundTableRow = (props) => {
   const [isAdhesionTyped, setAdhesionTyped] = useState(false);
   const [isFrictionАngleTyped, setFrictionАngleTyped] = useState(false);
   const [isStiffnessTyped, setStiffnessTyped] = useState(false);
+  const [isDepthTyped, setDepthTyped] = useState(false);
 
   const groundNumber = useRef();
   const groundName = useRef();
@@ -21,6 +22,7 @@ const GroundTableRow = (props) => {
   const groundAdhesion = useRef();
   const groundFrictionАngle = useRef();
   const groundStiffness = useRef();
+  const groundDepth = useRef();
 
   const addGround = () => {
     props.addRow(groundID);
@@ -58,6 +60,9 @@ const GroundTableRow = (props) => {
       case GROUNDCOLUMNAME[6]:
         setStiffnessTyped(checkTypeNumber(event.target.value));
         break;
+      case GROUNDCOLUMNAME[7]:
+        setDepthTyped(checkTypeNumber(event.target.value));
+        break;
       default:
         break;
     }
@@ -71,7 +76,8 @@ const GroundTableRow = (props) => {
         isDensityTyped &&
         isAdhesionTyped &&
         isFrictionАngleTyped &&
-        isStiffnessTyped
+        isStiffnessTyped &&
+        isDepthTyped
       ) {
         setRowValid(true);
       } else setRowValid(false);
@@ -86,7 +92,8 @@ const GroundTableRow = (props) => {
     isDensityTyped,
     isAdhesionTyped,
     isFrictionАngleTyped,
-    isStiffnessTyped
+    isStiffnessTyped,
+    isDepthTyped
   ]);
 
   const itemBlurHandler = () => {
@@ -98,7 +105,8 @@ const GroundTableRow = (props) => {
         density: groundDensity.current.value, // удельный вес кН/м3
         adhesion: groundAdhesion.current.value, // коэффициент сцепления кПа
         frictionАngle: groundFrictionАngle.current.value, // угол внутреннего трения, градусы
-        stiffness: groundStiffness.current.value // модуль деформаций, МПа
+        stiffness: groundStiffness.current.value, // модуль деформаций, МПа
+        depth: groundDepth.current.value //мощность слоя
       });
   };
 
@@ -165,6 +173,15 @@ const GroundTableRow = (props) => {
         <InputGI
           name={GROUNDCOLUMNAME[6]}
           ref={groundStiffness}
+          type="number"
+          onChange={itemChangeHandler}
+          onBlur={itemBlurHandler}
+        />
+      </td>
+      <td>
+        <InputGI
+          name={GROUNDCOLUMNAME[7]}
+          ref={groundDepth}
           type="number"
           onChange={itemChangeHandler}
           onBlur={itemBlurHandler}

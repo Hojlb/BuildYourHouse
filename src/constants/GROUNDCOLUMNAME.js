@@ -5,6 +5,7 @@ const GROUNDCOLUMNAME = [
   "density",
   "adhesion",
   "frictionАngle",
-  "stiffness"
+  "stiffness",
+  "depth"
 ];
 export default GROUNDCOLUMNAME;

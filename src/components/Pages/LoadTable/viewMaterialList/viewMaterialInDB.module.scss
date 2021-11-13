@@ -1,7 +1,9 @@
+.box{
+  position: relative;
+}
 .master-ul{
-  margin: 0 20vw;
-  border: 1px gray solid;
-
+  
+  padding: var(--mb-4);
 
   li {
     list-style-type: none;

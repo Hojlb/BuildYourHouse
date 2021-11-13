@@ -1,7 +1,41 @@
-
 .foundation {
   background-color: #ffffff6e;
   padding: var(--mb-4);
   border-radius: 20px;
   box-shadow: 0 0 40px rgb(0 0 0 / 90%);
 }
+
+.f_option {
+  display: flex;
+  flex-direction: row;
+  
+  align-items: center;
+  background-color: #ffffffc2;
+
+  section{
+    margin: 10px 0;
+  }
+  .item_col_left{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+  }
+  .item_centr{
+    margin: 0 auto;
+  }
+
+  .radio_section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    
+    .r_s_item{
+      display: inline;
+      label{
+        padding:0 15px;
+      }
+    }
+  }
+}
+

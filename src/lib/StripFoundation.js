@@ -1,5 +1,5 @@
 // сделать разбивку данных в объект типа
-let groundDB = [
+const groundDB = [
   {
     number: 1, //#
     name: "песок ср. ср пр.",
@@ -10,7 +10,6 @@ let groundDB = [
     // добавить пористость ?!
   }
 ];
-console.log(groundDB);
 
 let commonHeightProp = {
   optionOfScheme: "without-basement", // вариант конструктивной схемы фундаментов

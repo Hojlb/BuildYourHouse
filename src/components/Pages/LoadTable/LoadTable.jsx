@@ -18,6 +18,8 @@ const LoadTable = () => {
   const loadList = useSelector((state) => state.loadTable.loadList);
   const [materialFromDB, setMaterialFromDB] = useState([]);
   const { sendData } = addMaterialInDB();
+  const [isMaterialUpdate, setMaterialUpdate] = useState(false);
+  const [isShowDB, setIsShowDB] = useState(false);
   const { isLoading, error, getData } = getMaterialFromDB();
 
   const [summResult, setSummResult] = useState({
@@ -32,13 +34,20 @@ const LoadTable = () => {
   };
 
   const addMaterialHandler = (material) => {
+    setMaterialUpdate(true);
     sendData(material);
   };
+
+  const showMaterialDBHandler = () => {
+    setIsShowDB(!isShowDB);
+  };
+
   const setMaterialHandler = (materialObj) => {
     dispatch(ActLoad.changeLoadData(materialObj));
   };
 
   useEffect(() => {
+    setMaterialUpdate(false);
     const transformData = (dataResp) => {
       const loadedMaterial = [];
 
@@ -53,7 +62,7 @@ const LoadTable = () => {
     };
 
     getData(transformData);
-  }, []);
+  }, [isMaterialUpdate]);
 
   useEffect(() => {
     let prevState = loadList.map((item) => {
@@ -78,11 +87,20 @@ const LoadTable = () => {
     });
   }, [loadList]);
 
+  const materialDBControls = () => {
+    return (
+      <section className={`${styles.box} ${styles.show}`}>
+        <AddMaterialForm addMaterial={addMaterialHandler} />
+        <ViewMaterialList materialList={materialFromDB} />
+      </section>
+    );
+  };
+
   return (
     <fieldset className={styles}>
       <table>
         <caption>Сбор нагрузок</caption>
-        <LoadTHead />
+        <LoadTHead showDB={showMaterialDBHandler} showDBControls={isShowDB} />
         <tbody>
           {loadList.map((item) => (
             <LoadTRow
@@ -96,14 +114,7 @@ const LoadTable = () => {
           <LoadTResult result={summResult} />
         </tbody>
       </table>
-      <section className={}></section>
-      <section className="">
-        <AddMaterialForm addMaterial={addMaterialHandler} />
-      </section>
-
-      <section>
-        <ViewMaterialList materialList={materialFromDB} />
-      </section>
+      {isShowDB && materialDBControls()}
     </fieldset>
   );
 };
