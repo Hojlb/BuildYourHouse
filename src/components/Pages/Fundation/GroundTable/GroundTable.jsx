@@ -26,7 +26,7 @@ const GroundTable = (props) => {
       <caption>Характеристики грунтов</caption>
       <GTHead />
       <tbody>
-        {props.ground.map((item, index) => (
+        {props.ground.map((item) => (
           <GroundTableRow
             key={item.id}
             addRow={addRowHandler}

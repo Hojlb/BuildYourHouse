@@ -9,7 +9,7 @@ import styles from "./Foundation.module.scss";
 const Foundation = () => {
   const dispatch = useDispatch();
   const groundList = useSelector((state) => state.foundation.ground);
-
+  const [options, setOptions] = useState([]);
   const addGround = (id) => {
     dispatch(FAction.addGroundRow(id));
   };
@@ -22,6 +22,11 @@ const Foundation = () => {
     dispatch(FAction.changeGroundData(data));
   };
 
+  const onChangeFoundationOptionsHandler = (data) => {
+    setOptions(data);
+    console.log(data);
+  };
+
   return (
     <section className={styles.foundation}>
       <GroundTable
@@ -30,7 +35,9 @@ const Foundation = () => {
         removeGroundRow={removeGround}
         changeData={changeGroundData}
       />
-      <FoundationBaseOptions />
+      <FoundationBaseOptions
+        onChangeOptions={onChangeFoundationOptionsHandler}
+      />
     </section>
   );
 };

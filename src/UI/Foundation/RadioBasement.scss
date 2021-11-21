@@ -1,0 +1,12 @@
+.radio_section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  .r_s_item {
+    display: inline;
+    label {
+      padding: 0 15px;
+    }
+  }
+}

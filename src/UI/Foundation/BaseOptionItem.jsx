@@ -2,13 +2,23 @@ import React from "react";
 import styles from "./BaseOptionStyles.module.scss";
 
 const BaseOptionItem = React.forwardRef((props, ref) => {
-  const { type, value, onChange, onBlur, labelName, id } = props;
+  const {
+    type,
+    value,
+    onChange,
+    onBlur,
+    labelName,
+    name,
+    options,
+    placeholder
+  } = props;
   return (
     <div className={`${styles.inLine}`}>
-      <label htmlFor={id}>{labelName}</label>
+      <label htmlFor={name}>{labelName}</label>
       <input
-        id={id}
-        name={id}
+        placeholder={placeholder}
+        id={name}
+        name={name}
         ref={ref}
         type={type}
         value={value}
@@ -16,6 +26,7 @@ const BaseOptionItem = React.forwardRef((props, ref) => {
         onBlur={onBlur}
         min="0"
         step="10"
+        {...options}
       />
     </div>
   );

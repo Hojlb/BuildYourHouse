@@ -27,8 +27,6 @@ let commonHeightProp = {
   widthOfBuild: 21 // ширина здания - для db
 };
 
-console.log(commonHeightProp);
-
 function calcD1Coeff(benchmarkBottomSlab, benchmarkSecondary) {
   // TODO: добавить округление результата d1 до 2х знаков после запятой
   return -benchmarkBottomSlab + benchmarkSecondary;
