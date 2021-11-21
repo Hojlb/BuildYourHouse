@@ -32,16 +32,18 @@ const FoundationBaseOptions = (props) => {
     <section className={styles.f_option}>
       <section className={styles.item_col_left}>
         <h3>Параметры расчета</h3>
-        <BaseOptionItem {...listBaseOption[0]} />
-        <BaseOptionItem {...listBaseOption[1]} />
-        <BaseOptionItem {...listBaseOption[2]} />
+        {listBaseOption.map((itm, index) => {
+          if (index < 3) {
+            return <BaseOptionItem {...itm} key={itm.name} />;
+          }
+        })}
 
-        <h4>Отметки (абсолютные)</h4>
-        <BaseOptionItem {...listBaseOption[3]} />
-        <BaseOptionItem {...listBaseOption[4]} />
-        <BaseOptionItem {...listBaseOption[5]} />
-        <BaseOptionItem {...listBaseOption[6]} />
-        <BaseOptionItem {...listBaseOption[7]} />
+        <h4>Высотные отметки</h4>
+        {listBaseOption.map((itm, index) => {
+          if (index > 3 && index < 8) {
+            return <BaseOptionItem {...itm} key={itm.name} />;
+          }
+        })}
 
         <RadioBasement
           isBasement={isWithBasement}

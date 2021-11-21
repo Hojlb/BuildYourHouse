@@ -16,7 +16,7 @@ const MainCanvas = () => {
     var canvas = document.getElementById("FOGCanvas");
 
     canvas.width = 400;
-    canvas.height = 400;
+    canvas.height = 300;
 
     if (canvas.getContext) {
       var ctx = canvas.getContext("2d");

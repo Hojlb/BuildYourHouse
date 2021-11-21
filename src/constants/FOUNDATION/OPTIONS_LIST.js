@@ -57,6 +57,7 @@ export const FOUNDATION_OPTIONS = [
     //8
     name: "benchmarkFloorBasement",
     labelName: "Отметка пола техподполья (подвала), м",
-    type: "number"
+    type: "number",
+    placeholder: "относительная"
   }
 ];
