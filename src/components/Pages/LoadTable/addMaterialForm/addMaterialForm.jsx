@@ -25,7 +25,7 @@ const AddMaterialForm = (props) => {
 
       <div className={"add-material_itm"}>
         <label htmlFor="value">Value</label>
-        <input type="number" id="value" ref={materialValue} step="0.1" />
+        <input type="number" id="value" ref={materialValue} step="0.01" />
       </div>
 
       <ConfirmBtn className="btn">Add Material </ConfirmBtn>

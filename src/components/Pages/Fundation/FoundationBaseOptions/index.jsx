@@ -9,16 +9,16 @@ import styles from "../Foundation.module.scss";
 const FoundationBaseOptions = (props) => {
   const [isWithBasement, setWithBasement] = useState(false);
   const options = {
-    withBasement: "",
     widthWall: "",
     foundationSlabHeight: "",
     widthOfBuild: "",
     benchmarkZeroFloor: "",
     benchmarkPlanning: "",
     benchmarkBottomFoundationSlab: "",
-    benchmarkFloorBasement: "",
     benchmarkTopWall: "",
-    coeffGamma1: ""
+    coeffGamma1: "",
+    withBasement: false,
+    benchmarkFloorBasement: "0.000"
   };
 
   const changeBasementHandler = (e) => {
@@ -40,7 +40,7 @@ const FoundationBaseOptions = (props) => {
 
         <h4>Высотные отметки</h4>
         {listBaseOption.map((itm, index) => {
-          if (index > 3 && index < 8) {
+          if (index > 2 && index < 8) {
             return <BaseOptionItem {...itm} key={itm.name} />;
           }
         })}

@@ -16,10 +16,6 @@
   font-size: var(--icon-middle-size);
 }
 
-.posLeft{
-  right: calc( - var(--icon-middle-size));
-}
-
 .controls {
   display: flex;
   flex-direction: row;
