@@ -21,7 +21,12 @@ const Sidebar = () => {
       <nav>
         <ul className={!isAuth && styles["disableItem"]}>
           {navList.map((item, index) => (
-            <NavLink exact={item.name === "User"} to={item.link} key={item.id}>
+            <NavLink
+              exact
+              to={item.link}
+              key={item.id}
+              activeClassName={styles.activeBtn}
+            >
               <NavListItem disabled={!isAuth}>
                 {item.icon}
                 <div>{item.name}</div>

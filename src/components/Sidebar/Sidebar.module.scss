@@ -9,14 +9,14 @@ aside{
   padding: 0 8px;
   box-sizing: border-box;
 
-  a[class = "active"] button {
-      box-shadow: 0 0 15px rgba( $color: #171dd6a3, $alpha: 0.64);
-      transition: .5s; 
-      border: 3px solid  var(--footer-color);
-      border-radius: 50%;
-    }
-
+  // a[class = "active"]
+  .activeBtn button {
+    box-shadow: 0 0 15px rgba( $color: #171dd6a3, $alpha: 0.64);
+    transition: .5s; 
+    border: 3px solid  var(--footer-color);
+    border-radius: 50%;
   }
+}
 
 .disableItem {
   a {

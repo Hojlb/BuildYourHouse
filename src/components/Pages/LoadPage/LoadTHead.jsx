@@ -16,6 +16,10 @@ const LoadHeadTable = (props) => {
     props.showDB();
   };
 
+  const showHistoryHandler = () => {
+    props.showHistory();
+  };
+
   return (
     <thead>
       <tr>
@@ -36,6 +40,13 @@ const LoadHeadTable = (props) => {
             onClick={showMaterialDBHandler}
           >
             {isShow ? ICONS.show : ICONS.hidden}
+          </BtnLoadTable>
+
+          <BtnLoadTable
+            className={styles.icon_middle}
+            onClick={showHistoryHandler}
+          >
+            {ICONS.historyICN}
           </BtnLoadTable>
         </th>
       </tr>

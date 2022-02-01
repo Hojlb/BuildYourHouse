@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Router, Route, Switch } from "react-router-dom";
 import Foundation from "./components/Pages/Fundation/Foundation";
-import LoadTable from "./components/Pages/LoadTable/LoadTable";
+import LoadPage from "./components/Pages/LoadPage/LoadPage";
 import { createBrowserHistory } from "history";
 
 import "./styles.scss";
@@ -26,7 +26,7 @@ const App = () => {
           <Switch>
             <Route exact path="/" component={() => <AuthForm />} />
             <Route path="/home" component={() => <h2>Home </h2>} />
-            <Route path="/calcLoads" render={() => <LoadTable />} />
+            <Route path="/calcLoads" render={() => <LoadPage />} />
             <Route path="/calcFound" render={() => <Foundation />} />
             <Route path="/calcBrick" render={() => <p>Calc brick</p>} />
             <Route path="/settings" render={() => <p>Settings</p>} />
@@ -40,80 +40,3 @@ const App = () => {
   );
 };
 export default App;
-
-/*
-
-import PunchingIndex from './punching/punchingIndex';
-import LongRebarIndex from './longRebar/longRebarIndex';
-
-function Home() {
-  return <h2>Домашняя страница</h2>;
-}
-
-function WebProjects() {
-  return <h2>Мои проекты...</h2>;
-}
-
-function LongRebar() {
-  return <LongRebarIndex />;
-}
-
-function ShearRebar() {
-  return <h2>Поперечное армирование</h2>;
-}
-
-function Punching() {
-  return <PunchingIndex />;
-}
-
-function ReinfConc() {
-  return (
-    <div>
-      <nav>
-        <NavLink exact to="/reinforcementConcrete/longRebar"> Продольное армирование </NavLink>
-        <NavLink to="/reinforcementConcrete/shearRebar"> Поперечное армирование </NavLink>
-        <NavLink to="/reinforcementConcrete/punching"> Продавливание </NavLink>
-      </nav>
-      <Switch>
-        <Route exact path='/reinforcementConcrete/longRebar' render={() => <LongRebar />} />
-        <Route path='/reinforcementConcrete/shearRebar' render={() => <ShearRebar />} />
-        <Route path='/reinforcementConcrete/punching' render={() => <Punching/>} />
-      </Switch>
-    </div>
-   )
-}
-
-function About() {
-  return <h2>Max Polonsky</h2>;
-}
-
-function Nav() {
-  return (
-    <nav>
-      <NavLink exact to="/"> Домой </NavLink>
-      <NavLink to="/myWebProjects"> My web projects </NavLink>
-      <NavLink to="/reinforcementConcrete"> Расчет железобетонных конструкций </NavLink>
-      <NavLink to="/about"> About </NavLink>
-    </nav>
-  );
-}
-
-function App() {
-  return (
-    <Router>
-      <div>
-        <Nav />
-        <Switch>
-          <Route exact path="/" render={ () => <Home/> } />
-          <Route path="/myWebProjects" render={() => <WebProjects/>} />
-          <Route path="/reinforcementConcrete" render={() => <ReinfConc/>} />
-          <Route path="/about" render={() => <About/>} />
-        </Switch>
-      </div>
-    </Router>
-  );
-}
-
-export default App;
-
-*/

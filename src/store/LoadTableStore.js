@@ -16,13 +16,15 @@ const initialState = {
 
 const loadTableSlice = createSlice({
   name: "loadTable",
-  initialState: { loadList: [{ ...initialState, id: uuidv4() }] },
+  initialState: { loadList: [] },
   reducers: {
-    addLoadRow(state) {
-      let prevState = [...state.loadList];
-      // let prevIndex = prevState.findIndex((item) => item.id === action.payload);
-      // prevState.splice(prevIndex + 1, 0, { ...initialState, id: uuidv4() });
-      state.loadList = [...prevState, { ...initialState, id: uuidv4() }];
+    addLoadRow(state, action) {
+      const load = Object.assign(
+        {},
+        { ...initialState, id: uuidv4() },
+        action.payload
+      );
+      state.loadList = [...state.loadList, load];
     },
 
     removeLoadRow(state, action) {

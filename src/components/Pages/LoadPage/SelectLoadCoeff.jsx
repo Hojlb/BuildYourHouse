@@ -16,7 +16,7 @@ const SelectLoadCoeff = (props) => {
   return (
     <select name="coeff_of_load" onChange={changeHeahdler}>
       {LOADCOEFF.map((item, index) => (
-        <option key={index} value={item}>
+        <option key={index} value={item} selected={props.currentValue === item}>
           {item}
         </option>
       ))}

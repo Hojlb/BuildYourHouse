@@ -35,16 +35,20 @@ thead {
   width: 100%;
 }
 
-.box {
+.box35 {
   background-color: #f7e8b8ed;
   max-width: 35%;
   margin: 20px auto;
   border-radius: 20px;
   overflow: hidden;
 }
-.box.hidden {
+
+.box75 {
+  max-width: 75%;
+}
+.box35.hidden {
   display: none;
 }
-.box.show {
+.box35.show {
   display: block;
 }
