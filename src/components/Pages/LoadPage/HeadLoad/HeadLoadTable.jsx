@@ -74,11 +74,12 @@ const HeadLoadTable = ({
         <SelectLoadCoeff
           onChange={changeCoeffHandler}
           currentValue={currentLoadCoeff}
+          className={`${styles.bx}`}
         />
       </div>
       <div className={styles.align_cntr}>
         <BtnLoadTable
-          className={`${styles.icon_middle} ${styles.bx}`}
+          className={`${styles.icon_middle}`}
           onClick={addItemHandler}
         >
           {ICONS.addItem}
