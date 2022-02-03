@@ -7,7 +7,7 @@ import styles from "./loadTable.module.scss";
 const LoadHeadTable = (props) => {
   const isShow = props.showDBControls;
   const dispatch = useDispatch();
-
+  //  перенести в main
   const addItemHandler = () => {
     dispatch(ActLoad.addLoadRow());
   };
@@ -32,9 +32,6 @@ const LoadHeadTable = (props) => {
         <th> Норм. зн. нагрузки, кН/м</th>
         <th> Расч. зн. нагрузки, кН/м</th>
         <th>
-          <BtnLoadTable className={styles.icon_middle} onClick={addItemHandler}>
-            {ICONS.addItem}
-          </BtnLoadTable>
           <BtnLoadTable
             className={styles.icon_middle}
             onClick={showMaterialDBHandler}

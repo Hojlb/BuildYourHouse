@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { transformData } from "../lib/transformDataFromDB";
 import { v4 as uuidv4 } from "uuid";
 
 const initialState = {
   id: "",
-  materialName: "--Select--",
+  type: "", // deadLoad, funcLoad, snowLoad, windLoad
+  materialName: "",
   materialValue: 0,
   thicknessValue: 0,
   coeffLoad: 0,
@@ -16,7 +18,7 @@ const initialState = {
 
 const loadTableSlice = createSlice({
   name: "loadTable",
-  initialState: { loadList: [] },
+  initialState: { loadList: [], materialList: [], functionLoadList: [] },
   reducers: {
     addLoadRow(state, action) {
       const load = Object.assign(
@@ -43,6 +45,20 @@ const loadTableSlice = createSlice({
           ? Object.assign({}, item, action.payload)
           : item
       );
+    },
+
+    updateMaterialList(state, action) {
+      if (state.materialList.length !== action.payload.length) {
+        let resData = transformData(action.payload);
+        state.materialList = [...resData];
+      }
+    },
+
+    updateFumcLoadList(state, action) {
+      if (state.functionLoadList.length !== action.payload.length) {
+        let resData = transformData(action.payload);
+        state.functionLoadList = [...resData];
+      }
     }
   }
 });

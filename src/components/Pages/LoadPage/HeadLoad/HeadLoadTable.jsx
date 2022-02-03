@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import SelectLoadItem from "../SelectLoadItem";
 import SelectLoadCoeff from "../SelectLoadCoeff";
 import RadioLoadBtn from "/src/UI/Button/RadioBtnLoadTbl/RadioLoadBtn";
+import { TableBtn as BtnLoadTable } from "/src/UI/Button/Table/ControlsBtn";
+import { ICONS } from "/src/constants/ICONS";
 import styles from "./HeadLoadTable.module.scss";
 
 // вынести все useEffect в главный файл, чтобы разные компоненты
@@ -31,6 +33,8 @@ const HeadLoadTable = ({
   const typeOfUnits = () => {
     return currentTypeLoad === "deadLoad" ? "kN/m3" : "kN/m2";
   };
+
+  const addItemHandler = () => {};
 
   const selectLoadHandler = () => {};
   const changeCoeffHandler = () => {};
@@ -73,7 +77,12 @@ const HeadLoadTable = ({
         />
       </div>
       <div className={styles.align_cntr}>
-        <span className={styles.bx}>0.000</span>
+        <BtnLoadTable
+          className={`${styles.icon_middle} ${styles.bx}`}
+          onClick={addItemHandler}
+        >
+          {ICONS.addItem}
+        </BtnLoadTable>
       </div>
     </div>
   );

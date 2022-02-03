@@ -2,12 +2,10 @@ import React, { useState, useEffect } from "react";
 
 import AddMaterialForm from "./addMaterialForm/addMaterialForm";
 import ViewMaterialList from "./viewMaterialList/viewMaterialInDB";
-import addMaterialToDB from "/src/hooks/addMaterialToDB";
-import useMaterialDB from "/src/hooks/useMaterialDB";
 import { useDispatch, useSelector } from "react-redux";
 import { loadTableAction as ActLoad } from "/src/store/LoadTableStore";
 import { calcSummValues } from "/src/lib/CalcSummArrayItem";
-
+import { fetchLoadDB } from "/src/store/FetchLoadDB";
 import HeadLoadTable from "./HeadLoad/HeadLoadTable";
 
 import LoadTHead from "./LoadTHead";
@@ -17,29 +15,21 @@ import LoadTResult from "./LoadTResult";
 import styles from "./loadTable.module.scss";
 
 const LoadTable = () => {
-  const deadLoadDBLink =
-    "https://react-http-database-default-rtdb.firebaseio.com/materials/concrete_mortar.json";
-  const funcLoadDBLink =
-    "https://react-http-database-default-rtdb.firebaseio.com/functional_load.json";
-
   const dispatch = useDispatch();
   const loadList = useSelector((state) => state.loadTable.loadList);
-  const { getData } = useMaterialDB();
-  const { sendData } = addMaterialToDB();
-  const [currentLoadList, setCurrentLoadList] = useState([]);
+  const materialList = useSelector((state) => state.loadTable.materialList);
+  const functionLoadList = useSelector(
+    (state) => state.loadTable.functionLoadList
+  );
+  const [currenTypeLoad, setCurrentLoadType] = useState([]);
   const [currentLoadCoeff, setCurrentLoadCoeff] = useState(1);
+
   const [isSnowModalShow, setIsSnowModalShow] = useState(false);
   const [isWindModalShow, setIsWindModalShow] = useState(false);
   /* __________________________________________________________________ */
   const [isMaterialUpdate, setMaterialUpdate] = useState(false);
   const [isShowDB, setIsShowDB] = useState(false);
   const [isShowHistory, setIsShowHistory] = useState(false);
-
-  const [load, setLoad] = useState({
-    name: "",
-    value: "",
-    isLoadSquare: false
-  });
 
   const [summResult, setSummResult] = useState({
     charactLoadLine: 0,
@@ -48,34 +38,23 @@ const LoadTable = () => {
     designLoadLine: 0
   });
 
-  const [typeOfLoad, setTypeOfLoad] = useState("");
-
   const changeTypeLoadHandler = (type) => {
-    setTypeOfLoad(type);
+    setCurrentLoadType(type);
+  };
+
+  const setMaterialHandler = (materialObj) => {
+    dispatch(ActLoad.changeLoadData(materialObj));
   };
 
   useEffect(() => {
-    const transformData = (dataResp) => {
-      const newArray = [];
-
-      for (const itmKey in dataResp) {
-        newArray.push({
-          id: itmKey,
-          name: dataResp[itmKey].name,
-          value: dataResp[itmKey].value
-        });
-      }
-      setCurrentLoadList(newArray);
-    };
-
-    switch (typeOfLoad) {
+    switch (currenTypeLoad) {
       case "deadLoad": {
-        getData(transformData, deadLoadDBLink);
+        dispatch(fetchLoadDB(currenTypeLoad));
         setCurrentLoadCoeff(1.35);
         break;
       }
       case "functionLoad": {
-        getData(transformData, funcLoadDBLink);
+        dispatch(fetchLoadDB(currenTypeLoad));
         setCurrentLoadCoeff(1.5);
         break;
       }
@@ -90,7 +69,7 @@ const LoadTable = () => {
       default:
         break;
     }
-  }, [typeOfLoad]);
+  }, [currenTypeLoad, dispatch]);
 
   const deleteItemHandler = (id) => {
     dispatch(ActLoad.removeLoadRow(id));
@@ -98,10 +77,10 @@ const LoadTable = () => {
 
   const addMaterialHandler = (material) => {
     setMaterialUpdate(true);
-    sendData(
-      material,
-      typeOfLoad === "deadLoad" ? deadLoadDBLink : funcLoadDBLink
-    );
+    // sendData(
+    //   material,
+    //   currenTypeLoad === "deadLoad" ? deadLoadDBLink : funcLoadDBLink
+    // );
   };
 
   const showMaterialDBHandler = () => {
@@ -110,28 +89,6 @@ const LoadTable = () => {
   const showHistoryHandler = () => {
     setIsShowHistory(!isShowHistory);
   };
-
-  const setMaterialHandler = (materialObj) => {
-    dispatch(ActLoad.changeLoadData(materialObj));
-  };
-
-  // useEffect(() => {
-  //   setMaterialUpdate(false);
-  //   const transformData = (dataResp) => {
-  //     const loadedMaterial = [];
-
-  //     for (const materialKey in dataResp) {
-  //       loadedMaterial.push({
-  //         id: materialKey,
-  //         name: dataResp[materialKey].name,
-  //         value: dataResp[materialKey].value
-  //       });
-  //     }
-  //     setCurrentLoadList(loadedMaterial);
-  //   };
-
-  //   getFuncLoadList(transformData);
-  // }, [isMaterialUpdate, getFuncLoadList]);
 
   useEffect(() => {
     let prevState = loadList.map((item) => {
@@ -159,8 +116,8 @@ const LoadTable = () => {
   const materialDBControls = () => {
     return (
       <section className={`${styles.box35} ${styles.show}`}>
-        <AddMaterialForm addMaterial={addMaterialHandler} />
-        <ViewMaterialList materialList={currentLoadList} />
+        {/* <AddMaterialForm addMaterial={addMaterialHandler} />
+        <ViewMaterialList materialList={currentLoadList} /> */}
       </section>
     );
   };
@@ -179,10 +136,11 @@ const LoadTable = () => {
       <HeadLoadTable
         changeTypeLoad={changeTypeLoadHandler}
         changeLoadItm={setMaterialHandler}
-        loadList={currentLoadList}
-        currentTypeLoad={typeOfLoad}
+        loadList={
+          currenTypeLoad === "deadLoad" ? materialList : functionLoadList
+        }
+        currentTypeLoad={currenTypeLoad}
         currentLoadCoeff={currentLoadCoeff}
-        // currentLoadItem={currentLoadItemHandler}
       />
       <table>
         <caption>Сбор нагрузок</caption>
@@ -200,8 +158,8 @@ const LoadTable = () => {
               material={material}
               setMaterialData={setMaterialHandler}
             />
-          ))}
-          <LoadTResult result={summResult} /> */}
+          ))}*/}
+          <LoadTResult result={summResult} />
         </tbody>
       </table>
       {isShowDB && materialDBControls()}
