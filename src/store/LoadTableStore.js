@@ -3,45 +3,43 @@ import { transformData } from "../lib/transformDataFromDB";
 import { v4 as uuidv4 } from "uuid";
 
 const initialState = {
-  id: "",
-  type: "", // deadLoad, funcLoad, snowLoad, windLoad
-  materialName: "",
-  materialValue: 0,
+  idLoad: "",
+  typeLoad: "", // deadLoad, funcLoad, snowLoad, windLoad
+  nameLoad: "",
+  valueLoad: 0,
   thicknessValue: 0,
   coeffLoad: 0,
   widthValue: 0,
   charactValueLoadArea: 0,
   charactValueLoadLine: 0,
   designValueLoadArea: 0,
-  designValueLoadLine: 0
+  designValueLoadLine: 0,
+  typeOfUnits: "",
+  comments: ""
 };
 
 const loadTableSlice = createSlice({
   name: "loadTable",
   initialState: { loadList: [], materialList: [], functionLoadList: [] },
   reducers: {
-    addLoadRow(state, action) {
-      const load = Object.assign(
-        {},
-        { ...initialState, id: uuidv4() },
-        action.payload
-      );
+    addLoad(state, action) {
+      const load = Object.assign({}, { ...initialState }, action.payload);
       state.loadList = [...state.loadList, load];
     },
 
     removeLoadRow(state, action) {
       if (state.loadList.length === 1) {
-        state.loadList = [{ ...initialState, id: uuidv4() }];
+        state.loadList = [];
       } else {
         state.loadList = state.loadList.filter(
-          (item) => item.id !== action.payload
+          (item) => item.idLoad !== action.payload
         );
       }
     },
 
     changeLoadData(state, action) {
       state.loadList = state.loadList.map((item) =>
-        item.id === action.payload.id
+        item.idLoad === action.payload.idLoad
           ? Object.assign({}, item, action.payload)
           : item
       );

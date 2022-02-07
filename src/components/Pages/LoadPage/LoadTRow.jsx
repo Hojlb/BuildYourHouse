@@ -1,32 +1,50 @@
 import SelectLoadItem from "./SelectLoadItem";
 import SelectLoadCoeff from "./SelectLoadCoeff";
 import React, { useState, useEffect } from "react";
+import { defineTypeOfUnits } from "/src/lib/defineTypeOfUnits";
 import { TableBtn as BtnLoadTable } from "/src/UI/Button/Table/ControlsBtn";
 import { ICONS } from "/src/constants/ICONS";
 import styles from "./loadTable.module.scss";
 
+// idLoad: "",
+//   typeLoad: "", // deadLoad, funcLoad, snowLoad, windLoad
+//   nameLoad: "",
+//   valueLoad: 0,
+//   thicknessValue: 0,
+//   coeffLoad: 0,
+//   widthValue: 0,
+//   charactValueLoadArea: 0,
+//   charactValueLoadLine: 0,
+//   designValueLoadArea: 0,
+//   designValueLoadLine: 0,
+//   typeOfUnits: "",
+//   comments: ""
+// };
 const LoadTRow = (props) => {
   const localState = props.currentValue;
   const {
-    id: idRow,
+    idLoad,
     charactValueLoadArea,
     charactValueLoadLine,
     designValueLoadArea,
     designValueLoadLine
   } = props.currentValue; // состояние строки нагрузок из redux
 
-  const [material, setMaterial] = useState({
-    name: localState.materialName,
-    value: localState.materialValue
+  const typeOfUnits = defineTypeOfUnits(props.typeOfLoad);
+  const [load, setLoad] = useState({
+    name: localState.nameLoad,
+    value: localState.valueLoad
   });
   const [coeffValue, setCoeffValue] = useState(localState.coeffLoad);
   const [thicknessValue, setThicknessValue] = useState(
     localState.thicknessValue
   );
+  //const [newTypeLoad, setNewTypeLoad] = useState(props.typeOfLoad);
   const [widthValue, setWidthValue] = useState(localState.widthValue);
 
-  const changeMaterialHandler = (material) => {
-    setMaterial(material);
+  const changeLoadHandler = (newLoad) => {
+    setLoad(newLoad);
+    //setNewTypeLoad(coeffValue);
   };
   const changeCoeffHandler = (coeff) => {
     setCoeffValue(coeff);
@@ -38,8 +56,15 @@ const LoadTRow = (props) => {
     setWidthValue(loadWidth.target.value);
   };
   const removeLoadHandler = () => {
-    props.removeLoad(idRow);
+    props.removeLoad(idLoad);
   };
+
+  // useEffect(() => {
+  //   props.updLoad({
+  //     idLoad,
+  //
+  //   });
+  // }, [load, typeOfUnits, idLoad]);
 
   useEffect(() => {
     const identifier = setTimeout(() => {
@@ -47,40 +72,42 @@ const LoadTRow = (props) => {
       let charactLoadLine = 0;
       let designLoadArea = 0;
       let designloadLine = 0;
-      if (material && thicknessValue) {
-        charactLoadArea = calcLoadArea(material.value, thicknessValue);
 
-        if (coeffValue) {
-          designLoadArea = calcLoadArea(
-            material.value,
-            thicknessValue,
-            coeffValue
-          );
-        }
+      charactLoadArea = calcLoadArea(load.value, thicknessValue);
 
-        if ((widthValue > 0 && charactLoadArea !== 0) || designLoadArea !== 0) {
-          charactLoadLine = calcLoadLine(charactLoadArea, widthValue);
-          designloadLine = calcLoadLine(designLoadArea, widthValue);
-        }
+      designLoadArea = calcLoadArea(load.value, thicknessValue, coeffValue);
 
-        props.setMaterialData({
-          id: idRow,
-          materialName: material.name,
-          materialValue: material.value,
-          thicknessValue: thicknessValue,
-          coeffLoad: coeffValue,
-          widthValue: widthValue,
-          charactValueLoadArea: charactLoadArea,
-          charactValueLoadLine: charactLoadLine,
-          designValueLoadArea: designLoadArea,
-          designValueLoadLine: designloadLine
+      if ((widthValue > 0 && charactLoadArea !== 0) || designLoadArea !== 0) {
+        charactLoadLine = calcLoadLine(charactLoadArea, widthValue);
+        designloadLine = calcLoadLine(designLoadArea, widthValue);
+      }
+
+      let sendData = {
+        idLoad,
+        coeffLoad: coeffValue,
+        thicknessValue: thicknessValue,
+        widthValue: widthValue,
+        charactValueLoadArea: charactLoadArea,
+        charactValueLoadLine: charactLoadLine,
+        designValueLoadArea: designLoadArea,
+        designValueLoadLine: designloadLine
+      };
+
+      if (load.name !== localState.nameLoad) {
+        Object.assign(sendData, {
+          typeLoad: props.typeOfLoad,
+          nameLoad: load.name,
+          valueLoad: load.value,
+          typeOfUnits: typeOfUnits
         });
       }
+
+      props.updLoad(sendData);
     }, 500);
     return () => {
       clearTimeout(identifier);
     };
-  }, [material, coeffValue, thicknessValue, widthValue]);
+  }, [load, coeffValue, thicknessValue, widthValue, idLoad]);
 
   const calcLoadArea = (density, thickness, loadCoeff = 1) => {
     return Math.round(density * thickness * 0.001 * loadCoeff * 1000) / 1000;
@@ -94,10 +121,11 @@ const LoadTRow = (props) => {
     <tr className={styles.t_load_main_calc}>
       <td>
         <SelectLoadItem
-          initialMaterialName={material.name}
-          initialMaterialValue={material.value}
-          materialList={props.materialList}
-          onChange={changeMaterialHandler}
+          units={localState.typeOfUnits}
+          initialNameLoad={localState.nameLoad}
+          initialValueLoad={localState.valueLoad}
+          loadList={props.loadList}
+          onChange={changeLoadHandler}
         />
       </td>
       <td>

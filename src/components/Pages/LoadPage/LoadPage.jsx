@@ -22,7 +22,6 @@ const LoadTable = () => {
     (state) => state.loadTable.functionLoadList
   );
   const [currenTypeLoad, setCurrentLoadType] = useState([]);
-  const [currentLoadCoeff, setCurrentLoadCoeff] = useState(1);
 
   const [isSnowModalShow, setIsSnowModalShow] = useState(false);
   const [isWindModalShow, setIsWindModalShow] = useState(false);
@@ -42,29 +41,25 @@ const LoadTable = () => {
     setCurrentLoadType(type);
   };
 
-  const setMaterialHandler = (materialObj) => {
-    dispatch(ActLoad.changeLoadData(materialObj));
+  const setMaterialHandler = (load) => {
+    dispatch(ActLoad.addLoad(load));
   };
 
   useEffect(() => {
     switch (currenTypeLoad) {
       case "deadLoad": {
         dispatch(fetchLoadDB(currenTypeLoad));
-        setCurrentLoadCoeff(1.35);
         break;
       }
       case "functionLoad": {
         dispatch(fetchLoadDB(currenTypeLoad));
-        setCurrentLoadCoeff(1.5);
         break;
       }
       case "snow":
         setIsSnowModalShow(true);
-        setCurrentLoadCoeff(1.5);
         break;
       case "wind":
         setIsWindModalShow(true);
-        setCurrentLoadCoeff(1.5);
         break;
       default:
         break;
@@ -73,6 +68,9 @@ const LoadTable = () => {
 
   const deleteItemHandler = (id) => {
     dispatch(ActLoad.removeLoadRow(id));
+  };
+  const updLoadHandler = (load) => {
+    dispatch(ActLoad.changeLoadData(load));
   };
 
   const addMaterialHandler = (material) => {
@@ -140,7 +138,6 @@ const LoadTable = () => {
           currenTypeLoad === "deadLoad" ? materialList : functionLoadList
         }
         currentTypeLoad={currenTypeLoad}
-        currentLoadCoeff={currentLoadCoeff}
       />
       <table>
         <caption>Сбор нагрузок</caption>
@@ -150,15 +147,18 @@ const LoadTable = () => {
           showHistory={showHistoryHandler}
         />
         <tbody>
-          {/* {loadList.map((item) => (
+          {loadList.map((item) => (
             <LoadTRow
-              key={item.id}
+              key={item.idLoad}
               removeLoad={deleteItemHandler}
               currentValue={item}
-              material={material}
-              setMaterialData={setMaterialHandler}
+              loadList={
+                currenTypeLoad === "deadLoad" ? materialList : functionLoadList
+              }
+              typeOfLoad={currenTypeLoad}
+              updLoad={updLoadHandler}
             />
-          ))}*/}
+          ))}
           <LoadTResult result={summResult} />
         </tbody>
       </table>

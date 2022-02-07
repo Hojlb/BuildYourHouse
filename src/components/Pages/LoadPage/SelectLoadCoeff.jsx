@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { LOADCOEFF } from "/src/constants/LOADCOEFF";
 
-const SelectLoadCoeff = (props) => {
-  const [currentValue, setValue] = useState(props.currentValue);
+const SelectLoadCoeff = React.forwardRef((props, ref) => {
+  const [coeffValue, setCoeffValue] = useState(props.currentValue);
   const onChangeHandler = props.onChange;
 
-  useEffect(() => {
-    onChangeHandler(currentValue);
-  }, [currentValue, onChangeHandler]);
-
   const changeHeahdler = (e) => {
-    setValue(e.target.value);
+    setCoeffValue(e.target.value);
+    onChangeHandler(e.target.value);
   };
 
   return (
@@ -18,13 +15,15 @@ const SelectLoadCoeff = (props) => {
       name="coeff_of_load"
       onChange={changeHeahdler}
       className={props.className}
+      ref={ref}
+      value={coeffValue}
     >
       {LOADCOEFF.map((item, index) => (
-        <option key={index} value={item} selected={props.currentValue === item}>
+        <option key={index} value={item}>
           {item}
         </option>
       ))}
     </select>
   );
-};
+});
 export default SelectLoadCoeff;

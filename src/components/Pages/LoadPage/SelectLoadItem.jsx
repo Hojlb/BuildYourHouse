@@ -1,41 +1,51 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-const SelectLoadItem = ({
-  initialLoad,
-  loadList = [],
-  onChange,
-  units,
-  className
-}) => {
-  // const [targetMaterial, setTargetMaterial] = useState({
-  //   name: initialLoad.name,
-  //   value: initialLoad.value
-  // });
+const SelectLoadItem = React.forwardRef(
+  (
+    {
+      initialNameLoad,
+      initialValueLoad,
+      loadList = [],
+      onChange,
+      units,
+      className
+    },
+    ref
+  ) => {
+    const [targetLoad, setTargetLoad] = useState({
+      name: initialNameLoad,
+      value: initialValueLoad
+    });
 
-  const changeHandler = (e) => {
-    const material = {
-      name: e.target.options[e.target.selectedIndex].text,
-      value: e.target.value
+    const changeHandler = (e) => {
+      const newLoad = {
+        name: e.target.options[e.target.selectedIndex].text,
+        value: e.target.value
+      };
+      setTargetLoad(newLoad);
+      onChange(newLoad);
     };
-    // setTargetMaterial(material);
-    onChange(material);
-  };
 
-  return (
-    <select
-      name="material"
-      onChange={changeHandler}
-      className={className}
-      // value={targetMaterial.name}
-    >
-      {/* <option value={targetMaterial.value}>{targetMaterial.name}</option> */}
-      {loadList.length &&
-        loadList.map((item) => (
-          <option key={item.id} value={item.value}>
-            {item.name} - {item.value} {units}
+    return (
+      <select
+        onChange={changeHandler}
+        className={className}
+        ref={ref}
+        value={targetLoad.nameLoad}
+      >
+        {initialNameLoad && (
+          <option value={initialValueLoad}>
+            {initialNameLoad} - {initialValueLoad} {units}
           </option>
-        ))}
-    </select>
-  );
-};
+        )}
+        {loadList.length &&
+          loadList.map((item) => (
+            <option id={item.id} key={item.id} value={item.value}>
+              {item.name} - {item.value} {units}
+            </option>
+          ))}
+      </select>
+    );
+  }
+);
 export default SelectLoadItem;
