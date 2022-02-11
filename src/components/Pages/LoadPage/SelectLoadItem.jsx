@@ -19,7 +19,7 @@ const SelectLoadItem = React.forwardRef(
 
     const changeHandler = (e) => {
       const newLoad = {
-        name: e.target.options[e.target.selectedIndex].text,
+        name: e.target.options[e.target.selectedIndex].text.split(" - ")[0],
         value: e.target.value
       };
       setTargetLoad(newLoad);

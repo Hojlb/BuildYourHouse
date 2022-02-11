@@ -3,7 +3,6 @@ import NavListItem from "../../UI/NavListItem/NavListItem";
 import { NAVLIST } from "../../constants/NAVLIST";
 import styles from "./Sidebar.module.scss";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
 const navList = NAVLIST.map((item) => {
@@ -14,20 +13,19 @@ const navList = NAVLIST.map((item) => {
   };
 });
 
-const Sidebar = () => {
-  const isAuth = useSelector((state) => state.auth.isAuthentication);
+const Sidebar = (props) => {
   return (
     <aside className={styles["aside"]}>
       <nav>
-        <ul className={!isAuth && styles["disableItem"]}>
-          {navList.map((item, index) => (
+        <ul className={!props.isUserAuth && styles["disableItem"]}>
+          {navList.map((item) => (
             <NavLink
               exact
               to={item.link}
               key={item.id}
               activeClassName={styles.activeBtn}
             >
-              <NavListItem disabled={!isAuth}>
+              <NavListItem disabled={!props.isUserAuth}>
                 {item.icon}
                 <div>{item.name}</div>
               </NavListItem>

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../../store/UserAuth";
 import BtnUserAuthForm from "../../../UI/Button/BtnUserAuthForm/BtnUserAuthForm";
 import styles from "./AuthForm.module.scss";
+import { Redirect } from "react-router-dom";
 
 const AuthForm = (props) => {
   const dispatch = useDispatch();
@@ -43,7 +44,11 @@ const AuthForm = (props) => {
     </form>
   );
 
-  return <div className={styles["auth-form"]}>{!isAuth && userSignInForm}</div>;
+  return (
+    <div className={styles["auth-form"]}>
+      {(!isAuth && userSignInForm) || <Redirect to="/calcLoads" />}
+    </div>
+  );
 };
 
 export default AuthForm;

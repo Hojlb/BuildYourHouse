@@ -40,7 +40,7 @@ const authSlice = createSlice({
           access: findUser[0].access
         };
       } else {
-        return { ...state, message: "User is not find in database" };
+        return { ...state, message: "Incorrect username or password" };
       }
 
       setDataUserLS(result);
@@ -50,6 +50,7 @@ const authSlice = createSlice({
     logout(state) {
       setDataUserLS(tempUserAuth);
       state.isAuthentication = false;
+      localStorage.removeItem("BYH_USER_AUTH");
       //  = {
       //   ...state,
       //   user: { ...tempUserAuth.user },

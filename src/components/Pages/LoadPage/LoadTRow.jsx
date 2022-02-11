@@ -59,39 +59,23 @@ const LoadTRow = (props) => {
     props.removeLoad(idLoad);
   };
 
-  // useEffect(() => {
-  //   props.updLoad({
-  //     idLoad,
-  //
-  //   });
-  // }, [load, typeOfUnits, idLoad]);
-
   useEffect(() => {
     const identifier = setTimeout(() => {
-      let charactLoadArea = 0;
-      let charactLoadLine = 0;
-      let designLoadArea = 0;
-      let designloadLine = 0;
-
-      charactLoadArea = calcLoadArea(load.value, thicknessValue);
-
-      designLoadArea = calcLoadArea(load.value, thicknessValue, coeffValue);
-
-      if ((widthValue > 0 && charactLoadArea !== 0) || designLoadArea !== 0) {
-        charactLoadLine = calcLoadLine(charactLoadArea, widthValue);
-        designloadLine = calcLoadLine(designLoadArea, widthValue);
-      }
-
       let sendData = {
         idLoad,
         coeffLoad: coeffValue,
         thicknessValue: thicknessValue,
         widthValue: widthValue,
-        charactValueLoadArea: charactLoadArea,
-        charactValueLoadLine: charactLoadLine,
-        designValueLoadArea: designLoadArea,
-        designValueLoadLine: designloadLine
+        charactValueLoadArea: 0,
+        charactValueLoadLine: 0,
+        designValueLoadArea: 0,
+        designValueLoadLine: 0
       };
+
+      sendData.charactValueLoadArea = calcLoadWthoutCoeff(
+        load.value,
+        thicknessValue
+      );
 
       if (load.name !== localState.nameLoad) {
         Object.assign(sendData, {
@@ -102,6 +86,29 @@ const LoadTRow = (props) => {
         });
       }
 
+      if (typeOfUnits !== localState.typeOfUnits || typeOfUnits === "kN/m2") {
+        sendData.charactValueLoadArea = +load.value;
+      }
+
+      sendData.designValueLoadArea = calcLoadWthCoeff(
+        sendData.charactValueLoadArea,
+        coeffValue
+      );
+
+      if (
+        (widthValue > 0 && sendData.charactValueLoadArea !== 0) ||
+        sendData.designValueLoadArea !== 0
+      ) {
+        sendData.charactValueLoadLine = calcLoadWthoutCoeff(
+          sendData.charactValueLoadArea,
+          widthValue
+        );
+        sendData.designValueLoadLine = calcLoadWthoutCoeff(
+          sendData.designValueLoadArea,
+          widthValue
+        );
+      }
+
       props.updLoad(sendData);
     }, 500);
     return () => {
@@ -109,12 +116,11 @@ const LoadTRow = (props) => {
     };
   }, [load, coeffValue, thicknessValue, widthValue, idLoad]);
 
-  const calcLoadArea = (density, thickness, loadCoeff = 1) => {
-    return Math.round(density * thickness * 0.001 * loadCoeff * 1000) / 1000;
+  const calcLoadWthCoeff = (a, b) => {
+    return Math.round(a * b * 1000) / 1000;
   };
-
-  const calcLoadLine = (loadArea, widthLoad) => {
-    return Math.round(widthLoad * 0.001 * loadArea * 1000) / 1000;
+  const calcLoadWthoutCoeff = (a, b) => {
+    return Math.round(a * b) / 1000;
   };
 
   return (
@@ -126,6 +132,7 @@ const LoadTRow = (props) => {
           initialValueLoad={localState.valueLoad}
           loadList={props.loadList}
           onChange={changeLoadHandler}
+          className={styles.selLoadList}
         />
       </td>
       <td>
@@ -135,6 +142,7 @@ const LoadTRow = (props) => {
           name="thickness"
           value={thicknessValue}
           onChange={changeThickHandler}
+          disabled={localState.typeOfUnits === "kN/m2"}
         />
       </td>
       <td>

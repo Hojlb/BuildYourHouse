@@ -2,16 +2,30 @@ import React from "react";
 import LoadHistoryItm from "/src/UI/LoadTable/LoadHistoryItm";
 import styles from "./loadHistory.module.scss";
 
+// idLoad: "",
+//   typeLoad: "", // deadLoad, funcLoad, snowLoad, windLoad
+//   nameLoad: "",
+//   valueLoad: 0,
+//   thicknessValue: 0,
+//   coeffLoad: 0,
+//   widthValue: 0,
+//   charactValueLoadArea: 0,
+//   charactValueLoadLine: 0,
+//   designValueLoadArea: 0,
+//   designValueLoadLine: 0,
+//   typeOfUnits: "",
+//   comments: ""
+
 const LoadHistory = (props) => {
   const { loadList, summResult } = props;
   let checkData = true;
 
-  if (loadList.length === 1 && loadList[0].materialValue === 0) {
+  if (loadList.length === 0) {
     checkData = false;
   }
 
   const historyBlock = loadList.map((itm) => {
-    if (itm.materialValue === 0) return;
+    if (itm.nameLoad === 0) return;
     else {
       return <LoadHistoryItm list={itm} key={itm.id} />;
     }

@@ -7,7 +7,7 @@ const LoadHistoryItm = (props) => {
     <React.Fragment>
       <div className="table-col">
         <p>
-          {list.materialName} * {list.thicknessValue} (мм)
+          {list.nameLoad} * {list.thicknessValue} (мм)
         </p>
       </div>
       <div className="table-col">

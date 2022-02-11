@@ -1,7 +1,7 @@
 $header-height: 3rem;
 $header-color: #02cb6a;
 
-header {
+.header {
   width: 100%;
   height: $header-height;
   background-color: $header-color;
@@ -33,6 +33,10 @@ header {
     span{
       padding: 0 0.5rem;
     }
+  }
+
+  .button{
+    margin-right: 1rem;
   }
 
 }
